@@ -159,10 +159,6 @@ export default Ember.Service.extend({
         this.set('content', this.get('content').rejectBy('status', 'passive'));
     },
 
-    closePersistent: function () {
-        this.set('content', this.get('content').rejectBy('status', 'persistent'));
-    },
-
     closeAll: function () {
         this.get('content').clear();
     }
