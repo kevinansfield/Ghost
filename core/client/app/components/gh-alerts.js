@@ -1,5 +1,6 @@
 import Ember from 'ember';
-var AlertsComponent = Ember.Component.extend({
+
+export default Ember.Component.extend({
     tagName: 'aside',
     classNames: 'gh-alerts',
 
@@ -14,5 +15,3 @@ var AlertsComponent = Ember.Component.extend({
         this.sendAction('notify', this.get('messages').length);
     })
 });
-
-export default AlertsComponent;
