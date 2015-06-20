@@ -6,26 +6,6 @@ export default Ember.Service.extend({
     content: Ember.A(),
     timeout: 3000,
 
-    pushObject: function (object) {
-        // object can be either a DS.Model or a plain JS object, so when working with
-        // it, we need to handle both cases.
-
-        // make sure notifications have all the necessary properties set.
-        if (typeof object.toJSON === 'function') {
-            // working with a DS.Model
-
-            if (object.get('location') === '') {
-                object.set('location', 'bottom');
-            }
-        } else {
-            if (!object.location) {
-                object.location = 'bottom';
-            }
-        }
-
-        this._super(object);
-    },
-
     handleNotification: function (message, delayed) {
         if (typeof message.toJSON === 'function') {
             // If this is a persistent message from the server, treat it as html safe
