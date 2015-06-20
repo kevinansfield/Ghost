@@ -33,14 +33,19 @@ export default Ember.Component.extend({
         return classes;
     }),
 
+    // FIXME: These aren't currently being used (no fade-out animation is ever applied)
     didInsertElement: function () {
         var self = this;
 
         self.$().on('animationend webkitAnimationEnd oanimationend MSAnimationEnd', function (event) {
             if (event.originalEvent.animationName === 'fade-out') {
-                self.get('notifications').removeObject(self.get('message'));
+                self.get('notifications').closeNotification(self.get('message'));
             }
         });
+    },
+
+    willDestroyElement: function () {
+        this.$().off('animationend webkitAnimationEnd oanimationend MSAnimationEnd');
     },
 
     actions: {
