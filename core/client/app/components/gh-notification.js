@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
     tagName: 'article',
-    classNames: ['gh-notification', 'gh-notification-green'],
+    classNames: ['gh-notification', 'gh-notification-passive', 'gh-notification-green'],
     classNameBindings: ['typeClass'],
 
     message: null,
@@ -33,7 +33,6 @@ export default Ember.Component.extend({
         return classes;
     }),
 
-    // FIXME: These aren't currently being used (no fade-out animation is ever applied)
     didInsertElement: function () {
         var self = this;
 
