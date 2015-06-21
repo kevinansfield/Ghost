@@ -262,7 +262,7 @@ export default Ember.Mixin.create({
                 this.set('timedSaveId', null);
             }
 
-            notifications.closePassive();
+            notifications.closeNotifications();
 
             // Set the properties that are indirected
             // set markdown equal to what's in the editor, minus the image markers.

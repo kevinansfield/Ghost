@@ -21,7 +21,7 @@ export default Ember.Controller.extend(ValidationEngine, {
                 data = self.getProperties('blogTitle', 'name', 'email', 'password'),
                 notifications = this.get('notifications');
 
-            notifications.closePassive();
+            notifications.closeNotifications();
 
             this.toggleProperty('submitting');
             this.validate({format: false}).then(function () {

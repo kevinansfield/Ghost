@@ -8,17 +8,17 @@ export default Ember.Service.extend({
 
     handleNotification: function (message, delayed) {
         if (typeof message.toJSON === 'function') {
-            // If this is a persistent message from the server, treat it as html safe
-            if (message.get('status') === 'persistent') {
+            // If this is an alert message from the server, treat it as html safe
+            if (message.get('status') === 'alert') {
                 message.set('message', message.get('message').htmlSafe());
             }
 
             if (!message.get('status')) {
-                message.set('status', 'passive');
+                message.set('status', 'notification');
             }
         } else {
             if (!message.status) {
-                message.status = 'passive';
+                message.status = 'notification';
             }
         }
 
@@ -32,8 +32,8 @@ export default Ember.Service.extend({
     showError: function (message, options) {
         options = options || {};
 
-        if (!options.doNotClosePassive) {
-            this.closePassive();
+        if (!options.doNotCloseNotifications) {
+            this.closeNotifications();
         }
 
         this.handleNotification({
@@ -45,20 +45,20 @@ export default Ember.Service.extend({
     showErrors: function (errors, options) {
         options = options || {};
 
-        if (!options.doNotClosePassive) {
-            this.closePassive();
+        if (!options.doNotCloseNotifications) {
+            this.closeNotifications();
         }
 
         for (var i = 0; i < errors.length; i += 1) {
-            this.showError(errors[i].message || errors[i], {doNotClosePassive: true});
+            this.showError(errors[i].message || errors[i], {doNotCloseNotifications: true});
         }
     },
 
     showAPIError: function (resp, options) {
         options = options || {};
 
-        if (!options.doNotClosePassive) {
-            this.closePassive();
+        if (!options.doNotCloseNotifications) {
+            this.closeNotifications();
         }
 
         options.defaultErrorText = options.defaultErrorText || 'There was a problem on the server, please try again.';
@@ -70,15 +70,15 @@ export default Ember.Service.extend({
         } else if (resp && resp.jqXHR && resp.jqXHR.responseJSON && resp.jqXHR.responseJSON.message) {
             this.showError(resp.jqXHR.responseJSON.message, options);
         } else {
-            this.showError(options.defaultErrorText, {doNotClosePassive: true});
+            this.showError(options.defaultErrorText, {doNotCloseNotifications: true});
         }
     },
 
     showInfo: function (message, options) {
         options = options || {};
 
-        if (!options.doNotClosePassive) {
-            this.closePassive();
+        if (!options.doNotCloseNotifications) {
+            this.closeNotifications();
         }
 
         this.handleNotification({
@@ -90,8 +90,8 @@ export default Ember.Service.extend({
     showSuccess: function (message, options) {
         options = options || {};
 
-        if (!options.doNotClosePassive) {
-            this.closePassive();
+        if (!options.doNotCloseNotifications) {
+            this.closeNotifications();
         }
 
         this.handleNotification({
@@ -103,8 +103,8 @@ export default Ember.Service.extend({
     showWarn: function (message, options) {
         options = options || {};
 
-        if (!options.doNotClosePassive) {
-            this.closePassive();
+        if (!options.doNotCloseNotifications) {
+            this.closeNotifications();
         }
 
         this.handleNotification({
@@ -135,8 +135,8 @@ export default Ember.Service.extend({
         }
     },
 
-    closePassive: function () {
-        this.set('content', this.get('content').rejectBy('status', 'passive'));
+    closeNotifications: function () {
+        this.set('content', this.get('content').rejectBy('status', 'notification'));
     },
 
     closeAll: function () {

@@ -148,7 +148,7 @@ export default Ember.Controller.extend({
             // we need to have navigationItems recomputed.
             this.get('model').notifyPropertyChange('navigation');
 
-            notifications.closePassive();
+            notifications.closeNotifications();
 
             this.get('model').save().then(function () {
                 notifications.showSuccess('Navigation items saved.');

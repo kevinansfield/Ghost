@@ -8,12 +8,12 @@ export default Ember.Controller.extend({
             var notifications = this.get('notifications');
 
             return this.get('model').save().then(function (model) {
-                notifications.closePassive();
+                notifications.closeNotifications();
                 notifications.showSuccess('Settings successfully saved.');
 
                 return model;
             }).catch(function (errors) {
-                notifications.closePassive();
+                notifications.closeNotifications();
                 notifications.showErrors(errors);
             });
         }
