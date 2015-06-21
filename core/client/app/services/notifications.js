@@ -6,6 +6,20 @@ export default Ember.Service.extend({
     content: Ember.A(),
     timeout: 3000,
 
+    alerts: Ember.computed.filter('content', function (notification) {
+        var status = (typeof notification.toJSON === 'function') ?
+            notification.get('status') : notification.status;
+
+        return status === 'alert';
+    }),
+
+    notifications: Ember.computed.filter('content', function (notification) {
+        var status = (typeof notification.toJSON === 'function') ?
+            notification.get('status') : notification.status;
+
+        return status === 'notification';
+    }),
+
     handleNotification: function (message, delayed) {
         if (typeof message.toJSON === 'function') {
             // If this is an alert message from the server, treat it as html safe
