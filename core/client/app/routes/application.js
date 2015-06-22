@@ -152,19 +152,6 @@ export default Ember.Route.extend(ApplicationRouteMixin, ShortcutsRoute, {
             }
         },
 
-        handleErrors: function (errors) {
-            var notifications = this.get('notifications');
-
-            notifications.clear();
-            errors.forEach(function (errorObj) {
-                notifications.showNotification(errorObj.message || errorObj, {type: 'error'});
-
-                if (errorObj.hasOwnProperty('el')) {
-                    errorObj.el.addClass('input-error');
-                }
-            });
-        },
-
         // noop default for unhandled save (used from shortcuts)
         save: Ember.K
     }

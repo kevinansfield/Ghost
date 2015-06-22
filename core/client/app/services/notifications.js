@@ -43,7 +43,7 @@ export default Ember.Service.extend({
         }
     },
 
-    showAlert: function(message, options) {
+    showAlert: function (message, options) {
         options = options || {};
 
         this.handleNotification({
@@ -53,7 +53,7 @@ export default Ember.Service.extend({
         }, options.delayed);
     },
 
-    showNotification: function(message, options) {
+    showNotification: function (message, options) {
         options = options || {};
 
         if (!options.doNotCloseNotifications) {
