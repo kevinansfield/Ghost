@@ -10,7 +10,7 @@ export default Ember.Controller.extend({
             var notifications = this.get('notifications');
 
             this.get('model').save().then(function (model) {
-                notifications.showSuccess('Saved');
+                notifications.showNotification('Saved');
 
                 return model;
             }).catch(function (err) {

@@ -48,9 +48,9 @@ export default Ember.Controller.extend({
 
                 if (invitedUser) {
                     if (invitedUser.get('status') === 'invited' || invitedUser.get('status') === 'invited-pending') {
-                        self.get('notifications').showWarn('A user with that email address was already invited.');
+                        self.get('notifications').showNotification('A user with that email address was already invited.', {type: 'warn'});
                     } else {
-                        self.get('notifications').showWarn('A user with that email address already exists.');
+                        self.get('notifications').showNotification('A user with that email address already exists.', {type: 'warn'});
                     }
                 } else {
                     newUser = self.store.createRecord('user', {
@@ -65,9 +65,9 @@ export default Ember.Controller.extend({
                         // If sending the invitation email fails, the API will still return a status of 201
                         // but the user's status in the response object will be 'invited-pending'.
                         if (newUser.get('status') === 'invited-pending') {
-                            self.get('notifications').showWarn('Invitation email was not sent.  Please try resending.');
+                            self.get('notifications').showNotification('Invitation email was not sent.  Please try resending.', {type: 'warn'});
                         } else {
-                            self.get('notifications').showSuccess(notificationText);
+                            self.get('notifications').showNotification(notificationText);
                         }
                     }).catch(function (errors) {
                         newUser.deleteRecord();

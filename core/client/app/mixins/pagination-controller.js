@@ -25,7 +25,7 @@ export default Ember.Mixin.create({
             message += '.';
         }
 
-        this.get('notifications').showError(message);
+        this.get('notifications').showNotification(message, {type: 'error'});
     },
 
     actions: {

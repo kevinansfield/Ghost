@@ -151,7 +151,7 @@ export default Ember.Controller.extend({
             notifications.closeNotifications();
 
             this.get('model').save().then(function () {
-                notifications.showSuccess('Navigation items saved.');
+                notifications.showNotification('Navigation items saved.');
             }).catch(function (err) {
                 notifications.showErrors(err);
             });

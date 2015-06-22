@@ -104,20 +104,20 @@ var SetupThreeController = Ember.Controller.extend({
                         if (erroredEmails.length > 0) {
                             message = 'Failed to send ' + erroredEmails.length + ' invitations: ';
                             message += erroredEmails.join(', ');
-                            notifications.showError(message, {delayed: successCount > 0});
+                            notifications.showNotification(message, {type: 'error', delayed: successCount > 0});
                         }
 
                         if (successCount > 0) {
                             // pluralize
                             invitationsString = successCount > 1 ? 'invitations' : 'invitation';
 
-                            notifications.showSuccess(successCount + ' ' + invitationsString + ' sent!', {delayed: true});
+                            notifications.showNotification(successCount + ' ' + invitationsString + ' sent!', {delayed: true});
                             self.transitionTo('posts.index');
                         }
                     });
                 });
             } else if (users.length === 0) {
-                notifications.showError('No users to invite.');
+                notifications.showNotification('No users to invite.', {type: 'error'});
             } else {
                 errorMessages = validationErrors.map(function (error) {
                     // Only one error type here so far, but one day the errors might be more detailed

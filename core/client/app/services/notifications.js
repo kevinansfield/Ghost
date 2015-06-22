@@ -43,7 +43,17 @@ export default Ember.Service.extend({
         }
     },
 
-    showError: function (message, options) {
+    showAlert: function(message, options) {
+        options = options || {};
+
+        this.handleNotification({
+            message: message,
+            status: 'alert',
+            type: options.type || 'error'
+        }, options.delayed);
+    },
+
+    showNotification: function(message, options) {
         options = options || {};
 
         if (!options.doNotCloseNotifications) {
@@ -51,8 +61,9 @@ export default Ember.Service.extend({
         }
 
         this.handleNotification({
-            type: 'error',
-            message: message
+            message: message,
+            status: 'notification',
+            type: options.type || 'success'
         }, options.delayed);
     },
 
@@ -64,7 +75,7 @@ export default Ember.Service.extend({
         }
 
         for (var i = 0; i < errors.length; i += 1) {
-            this.showError(errors[i].message || errors[i], {doNotCloseNotifications: true});
+            this.showNotification(errors[i].message || errors[i], {type: 'error', doNotCloseNotifications: true});
         }
     },
 
@@ -78,53 +89,14 @@ export default Ember.Service.extend({
         options.defaultErrorText = options.defaultErrorText || 'There was a problem on the server, please try again.';
 
         if (resp && resp.jqXHR && resp.jqXHR.responseJSON && resp.jqXHR.responseJSON.error) {
-            this.showError(resp.jqXHR.responseJSON.error, options);
+            this.showAlert(resp.jqXHR.responseJSON.error, options);
         } else if (resp && resp.jqXHR && resp.jqXHR.responseJSON && resp.jqXHR.responseJSON.errors) {
             this.showErrors(resp.jqXHR.responseJSON.errors, options);
         } else if (resp && resp.jqXHR && resp.jqXHR.responseJSON && resp.jqXHR.responseJSON.message) {
-            this.showError(resp.jqXHR.responseJSON.message, options);
+            this.showAlert(resp.jqXHR.responseJSON.message, options);
         } else {
-            this.showError(options.defaultErrorText, {doNotCloseNotifications: true});
+            this.showAlert(options.defaultErrorText, {doNotCloseNotifications: true});
         }
-    },
-
-    showInfo: function (message, options) {
-        options = options || {};
-
-        if (!options.doNotCloseNotifications) {
-            this.closeNotifications();
-        }
-
-        this.handleNotification({
-            type: 'info',
-            message: message
-        }, options.delayed);
-    },
-
-    showSuccess: function (message, options) {
-        options = options || {};
-
-        if (!options.doNotCloseNotifications) {
-            this.closeNotifications();
-        }
-
-        this.handleNotification({
-            type: 'success',
-            message: message
-        }, options.delayed);
-    },
-
-    showWarn: function (message, options) {
-        options = options || {};
-
-        if (!options.doNotCloseNotifications) {
-            this.closeNotifications();
-        }
-
-        this.handleNotification({
-            type: 'warn',
-            message: message
-        }, options.delayed);
     },
 
     displayDelayed: function () {

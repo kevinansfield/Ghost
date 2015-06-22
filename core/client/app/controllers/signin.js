@@ -47,7 +47,7 @@ export default Ember.Controller.extend(ValidationEngine, {
 
             if (!email) {
                 // TODO: Switch to in-line validation
-                return notifications.showError('Enter email address to reset password.');
+                return notifications.showNotification('Enter email address to reset password.', {type: 'error'});
             }
 
             self.set('submitting', true);
@@ -62,7 +62,7 @@ export default Ember.Controller.extend(ValidationEngine, {
                 }
             }).then(function () {
                 self.set('submitting', false);
-                notifications.showSuccess('Please check your email for instructions.');
+                notifications.showNotification('Please check your email for instructions.');
             }).catch(function (resp) {
                 self.set('submitting', false);
                 notifications.showAPIError(resp, {defaultErrorText: 'There was a problem with the reset, please try again.'});

@@ -216,7 +216,7 @@ export default Ember.Mixin.create({
             message += `&nbsp;<a href="${path}">View ${type}</a>`;
         }
 
-        notifications.showSuccess(message.htmlSafe(), {delayed: delay});
+        notifications.showNotification(message.htmlSafe(), {delayed: delay});
     },
 
     showErrorNotification: function (prevStatus, status, errors, delay) {
@@ -226,7 +226,7 @@ export default Ember.Mixin.create({
 
         message += '<br />' + error;
 
-        notifications.showError(message.htmlSafe(), {delayed: delay});
+        notifications.showNotification(message.htmlSafe(), {type: 'error', delayed: delay});
     },
 
     shouldFocusTitle: Ember.computed.alias('model.isNew'),
