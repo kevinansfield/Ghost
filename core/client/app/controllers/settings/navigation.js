@@ -108,7 +108,7 @@ export default Ember.Controller.extend({
 
             // Don't save if there's a blank label.
             if (navItems.find(function (item) {return !item.get('isComplete') && !item.get('last');})) {
-                notifications.showErrors([message.htmlSafe()]);
+                notifications.showAlert(message.htmlSafe(), {type: 'error'});
                 return;
             }
 
@@ -150,9 +150,7 @@ export default Ember.Controller.extend({
 
             notifications.closeNotifications();
 
-            this.get('model').save().then(function () {
-                notifications.showNotification('Navigation items saved.');
-            }).catch(function (err) {
+            this.get('model').save().catch(function (err) {
                 notifications.showErrors(err);
             });
         }

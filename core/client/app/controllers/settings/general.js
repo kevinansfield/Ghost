@@ -69,7 +69,6 @@ export default Ember.Controller.extend({
 
             return this.get('model').save().then(function (model) {
                 config.set('blogTitle', model.get('title'));
-                notifications.showNotification('Settings successfully saved.');
 
                 return model;
             }).catch(function (errors) {

@@ -62,7 +62,7 @@ export default Ember.Controller.extend(ValidationEngine, {
                 }
             }).then(function () {
                 self.set('submitting', false);
-                notifications.showNotification('Please check your email for instructions.');
+                notifications.showAlert('Please check your email for instructions.', {type: 'info'});
             }).catch(function (resp) {
                 self.set('submitting', false);
                 notifications.showAPIError(resp, {defaultErrorText: 'There was a problem with the reset, please try again.'});

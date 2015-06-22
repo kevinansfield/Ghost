@@ -31,9 +31,8 @@ export default Ember.Controller.extend({
             user.destroyRecord().then(function () {
                 self.store.unloadAll('post');
                 self.transitionToRoute('team');
-                self.get('notifications').showNotification('The user has been deleted.', {delayed: true});
             }, function () {
-                self.get('notifications').showNotification('The user could not be deleted. Please try again.', {type: 'error'});
+                self.get('notifications').showAlert('The user could not be deleted. Please try again.', {type: 'error'});
             });
         },
 

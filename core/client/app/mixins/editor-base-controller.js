@@ -206,6 +206,7 @@ export default Ember.Mixin.create({
         }
     },
 
+    // TODO: Update for new notification click-action API
     showSaveNotification: function (prevStatus, status, delay) {
         var message = this.messageMap.success.post[prevStatus][status],
             path = this.get('model.absoluteUrl'),
@@ -226,7 +227,7 @@ export default Ember.Mixin.create({
 
         message += '<br />' + error;
 
-        notifications.showNotification(message.htmlSafe(), {type: 'error', delayed: delay});
+        notifications.showAlert(message.htmlSafe(), {type: 'error', delayed: delay});
     },
 
     shouldFocusTitle: Ember.computed.alias('model.isNew'),

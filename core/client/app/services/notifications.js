@@ -29,7 +29,7 @@ export default Ember.Service.extend({
         if (!delayed) {
             this.get('content').pushObject(message);
         } else {
-            this.delayedNotifications.pushObject(message);
+            this.get('delayedNotifications').pushObject(message);
         }
     },
 
@@ -71,6 +71,7 @@ export default Ember.Service.extend({
 
     showAPIError: function (resp, options) {
         options = options || {};
+        options.type = options.type || 'error';
 
         if (!options.doNotCloseNotifications) {
             this.closeNotifications();
