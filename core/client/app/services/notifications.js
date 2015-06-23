@@ -7,33 +7,23 @@ export default Ember.Service.extend({
     timeout: 3000,
 
     alerts: Ember.computed.filter('content', function (notification) {
-        var status = (typeof notification.toJSON === 'function') ?
-            notification.get('status') : notification.status;
-
+        var status = Ember.get(notification, 'status');
         return status === 'alert';
     }),
 
     notifications: Ember.computed.filter('content', function (notification) {
-        var status = (typeof notification.toJSON === 'function') ?
-            notification.get('status') : notification.status;
-
+        var status = Ember.get(notification, 'status');
         return status === 'notification';
     }),
 
     handleNotification: function (message, delayed) {
-        if (typeof message.toJSON === 'function') {
-            // If this is an alert message from the server, treat it as html safe
-            if (message.get('status') === 'alert') {
-                message.set('message', message.get('message').htmlSafe());
-            }
+        // If this is an alert message from the server, treat it as html safe
+        if (typeof message.toJSON === 'function' && message.get('status') === 'alert') {
+            message.set('message', message.get('message').htmlSafe());
+        }
 
-            if (!message.get('status')) {
-                message.set('status', 'notification');
-            }
-        } else {
-            if (!message.status) {
-                message.status = 'notification';
-            }
+        if (!Ember.get(message, 'status')) {
+            Ember.set(message, 'status', 'notification');
         }
 
         if (!delayed) {
