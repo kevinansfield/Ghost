@@ -16,7 +16,8 @@ export default Ember.Component.extend({
         typeMapping = {
             success: 'green',
             error: 'red',
-            warn: 'yellow'
+            warn: 'yellow',
+            info: 'blue'
         };
 
         if (typeMapping[type] !== undefined) {
