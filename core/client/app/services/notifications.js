@@ -39,7 +39,7 @@ export default Ember.Service.extend({
         this.handleNotification({
             message: message,
             status: 'alert',
-            type: options.type || 'error'
+            type: options.type
         }, options.delayed);
     },
 
@@ -53,7 +53,7 @@ export default Ember.Service.extend({
         this.handleNotification({
             message: message,
             status: 'notification',
-            type: options.type || 'success'
+            type: options.type
         }, options.delayed);
     },
 
