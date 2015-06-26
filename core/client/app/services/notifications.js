@@ -1,10 +1,8 @@
 import Ember from 'ember';
-import Notification from 'ghost/models/notification';
 
 export default Ember.Service.extend({
     delayedNotifications: Ember.A(),
     content: Ember.A(),
-    timeout: 3000,
 
     alerts: Ember.computed.filter('content', function (notification) {
         var status = Ember.get(notification, 'status');
@@ -57,6 +55,7 @@ export default Ember.Service.extend({
         }, options.delayed);
     },
 
+    // TODO: review whether this can be removed once no longer used by validations
     showErrors: function (errors, options) {
         options = options || {};
 
@@ -86,7 +85,7 @@ export default Ember.Service.extend({
         } else if (resp && resp.jqXHR && resp.jqXHR.responseJSON && resp.jqXHR.responseJSON.message) {
             this.showAlert(resp.jqXHR.responseJSON.message, options);
         } else {
-            this.showAlert(options.defaultErrorText, {doNotCloseNotifications: true});
+            this.showAlert(options.defaultErrorText, {type: options.type, doNotCloseNotifications: true});
         }
     },
 
@@ -102,7 +101,7 @@ export default Ember.Service.extend({
     closeNotification: function (notification) {
         var content = this.get('content');
 
-        if (notification instanceof Notification) {
+        if (typeof notification.toJSON === 'function') {
             notification.deleteRecord();
             notification.save().finally(function () {
                 content.removeObject(notification);
