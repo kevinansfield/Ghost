@@ -547,7 +547,7 @@ CasperTest.begin('Publish menu - new post status is correct after failed save', 
     casper.thenClick('.js-publish-button');
 
     // ... check status, label, class
-    casper.waitForSelector('.gh-alert', function onSuccess() {
+    casper.waitForSelector('.gh-alert-red', function onSuccess() {
         test.assertExists('.js-publish-button.btn-blue', 'Update button should have .btn-blue');
         // wait for button to settle
         casper.wait(500);
