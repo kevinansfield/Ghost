@@ -63,6 +63,10 @@ export default Ember.Controller.extend({
     }),
 
     actions: {
+        validate: function () {
+            this.get('model').validate(arguments);
+        },
+
         save: function () {
             var notifications = this.get('notifications'),
                 config = this.get('config');

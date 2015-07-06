@@ -10,21 +10,22 @@
         <form id="settings-general" novalidate="novalidate">
             <fieldset>
 
-                <div class="form-group">
+                {{#gh-form-group errors=model.errors property="title"}}
                     <label for="blog-title">Blog Title</label>
-                    {{input id="blog-title" class="gh-input" name="general[title]" type="text" value=model.title}}
+                    {{gh-input id="blog-title" class="gh-input" name="general[title]" type="text" value=model.title focusOut=(action "validate" "title")}}
+                    {{gh-error-message errors=model.errors property="title"}}
                     <p>The name of your blog</p>
-                </div>
+                {{/gh-form-group}}
 
-                <div class="form-group description-container">
+                {{#gh-form-group class="description-container" errors=model.errors property="description"}}
                     <label for="blog-description">Blog Description</label>
-                    {{textarea id="blog-description" class="gh-input" name="general[description]" value=model.description}}
+                    {{gh-textarea id="blog-description" class="gh-input" name="general[description]" value=model.description focusOut=(action "validate" "description")}}
+                    {{gh-error-message errors=model.errors property="description"}}
                     <p>
                         Describe what your blog is about
                         {{gh-count-characters model.description}}
                     </p>
-
-                </div>
+                {{/gh-form-group}}
             </fieldset>
 
             <div class="form-group">

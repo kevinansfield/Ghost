@@ -128,6 +128,7 @@ export default Ember.Mixin.create({
             passed = validator.check(model, opts.property);
 
             if (passed) {
+                console.log('passed', model, opts.property);
                 if (opts.property) {
                     model.get('errors').remove(opts.property);
                 } else {
@@ -135,6 +136,7 @@ export default Ember.Mixin.create({
                 }
                 return resolve();
             }
+            console.log('failed', model, opts.property);
             return reject();
         });
     },
