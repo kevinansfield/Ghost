@@ -14,7 +14,7 @@ export default function () {
         // defined.
         title: null,
 
-        _actions: {
+        actions: {
             collectTitleTokens: function (tokens) {
                 var titleToken = this.titleToken,
                     finalTitle;

@@ -10,7 +10,7 @@ describeModel(
     'user',
     'Unit: Model: user',
     {
-        needs: ['model:role']
+        needs: ['model:role', 'serializer:application', 'serializer:user']
     },
 
     function () {
@@ -71,26 +71,28 @@ describeModel(
         });
 
         it('role property is correct', function () {
-            var model = this.subject();
+            var model = this.subject(),
+                store = this.store();
 
             run(() => {
-                let role = this.store().push('role', {id: 1, name: 'Author'});
+                let role = store.push(store.normalize('role', {id: 1, name: 'Author'}));
                 model.get('roles').pushObject(role);
             });
             expect(model.get('role.name')).to.equal('Author');
 
             run(() => {
-                let role = this.store().push('role', {id: 1, name: 'Editor'});
+                let role = store.push(store.normalize('role', {id: 1, name: 'Editor'}));
                 model.set('role', role);
             });
             expect(model.get('role.name')).to.equal('Editor');
         });
 
         it('isAuthor property is correct', function () {
-            var model = this.subject();
+            var model = this.subject(),
+                store = this.store();
 
             run(() => {
-                let role = this.store().push('role', {id: 1, name: 'Author'});
+                let role = store.push(store.normalize('role', {id: 1, name: 'Author'}));
                 model.set('role', role);
             });
             expect(model.get('isAuthor')).to.be.ok;
@@ -100,10 +102,11 @@ describeModel(
         });
 
         it('isEditor property is correct', function () {
-            var model = this.subject();
+            var model = this.subject(),
+                store = this.store();
 
             run(() => {
-                let role = this.store().push('role', {id: 1, name: 'Editor'});
+                let role = store.push(store.normalize('role', {id: 1, name: 'Editor'}));
                 model.set('role', role);
             });
             expect(model.get('isEditor')).to.be.ok;
@@ -113,10 +116,11 @@ describeModel(
         });
 
         it('isAdmin property is correct', function () {
-            var model = this.subject();
+            var model = this.subject(),
+                store = this.store();
 
             run(() => {
-                let role = this.store().push('role', {id: 1, name: 'Administrator'});
+                let role = store.push(store.normalize('role', {id: 1, name: 'Administrator'}));
                 model.set('role', role);
             });
             expect(model.get('isAdmin')).to.be.ok;
@@ -126,10 +130,11 @@ describeModel(
         });
 
         it('isOwner property is correct', function () {
-            var model = this.subject();
+            var model = this.subject(),
+                store = this.store();
 
             run(() => {
-                let role = this.store().push('role', {id: 1, name: 'Owner'});
+                let role = store.push(store.normalize('role', {id: 1, name: 'Owner'}));
                 model.set('role', role);
             });
             expect(model.get('isOwner')).to.be.ok;

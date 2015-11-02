@@ -111,9 +111,7 @@ export default Ember.Mixin.create({
     */
     save: function (options) {
         var self = this,
-            // this is a hack, but needed for async _super calls.
-            // ref: https://github.com/emberjs/ember.js/pull/4301
-            _super = this.__nextSuper;
+            _super = this._super;
 
         options = options || {};
         options.wasSave = true;
