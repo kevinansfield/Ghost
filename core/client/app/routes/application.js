@@ -138,11 +138,13 @@ export default Ember.Route.extend(ApplicationRouteMixin, ShortcutsRoute, {
 
         error: function (error) {
             const [_error] = error.errors;
+            console.log('application.error', _error);
 
             // sign-out and redirect to sign-in if our session is invalid
             if (_error.status === '401' || _error.errorType === 'UnauthorizedError') {
+                console.log('invalidating session');
                 this.get('session').invalidate();
-                return;
+                return false;
             }
 
             return true;

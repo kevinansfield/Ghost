@@ -10,9 +10,52 @@ import Ember from 'ember';
 import startApp from '../helpers/start-app';
 import { authenticateSession, currentSession, invalidateSession } from 'ghost/tests/helpers/ember-simple-auth';
 import Mirage from 'ember-cli-mirage';
-import onerrorDefault from 'ember';
 
 const {run} = Ember;
+
+// copied from ember-runtime/lib/ext/rsvp.js
+function onerrorDefault(reason) {
+    var error;
+
+    if (reason && reason.errorThrown) {
+        // jqXHR provides this
+        error = reason.errorThrown;
+        if (typeof error === 'string') {
+            error = new Error(error);
+        }
+        Object.defineProperty(error, '__reason_with_error_thrown__', {
+            value: reason,
+            enumerable: false
+        });
+    } else {
+        error = reason;
+    }
+
+    if (error && error.name === "UnrecognizedURLError") {
+        assert("The URL '" + error.message + "' did not match any routes in your application", false);
+        return;
+    }
+
+    if (error && error.name !== 'TransitionAborted') {
+        if (Ember.testing) {
+            // ES6TODO: remove when possible
+            if (!Test && Ember.__loader.registry[testModuleName]) {
+                Test = requireModule(testModuleName)['default'];
+            }
+
+            if (Test && Test.adapter) {
+                Test.adapter.exception(error);
+                Logger.error(error.stack);
+            } else {
+                throw error;
+            }
+        } else if (Ember.onerror) {
+            Ember.onerror(error);
+        } else {
+            Logger.error(error.stack);
+        }
+    }
+}
 
 describe('Acceptance: Authentication', function () {
     let application;
@@ -36,12 +79,12 @@ describe('Acceptance: Authentication', function () {
             // Different behaviour only in testing, why not? ¯\_(ツ)_/¯
             // Workaround is to disable RSVP's error handling for this test
             // TODO: Remove if the bug is fixed, issue has been raised at https://github.com/emberjs/ember.js/issues/12567
-            Ember.RSVP.off('error');
+            // Ember.RSVP.off('error');
         });
 
         afterEach(function () {
             // Turn RSVP's error handling back on
-            Ember.RSVP.on('error', onerrorDefault);
+            // Ember.RSVP.on('error', onerrorDefault);
         });
 
         it('redirects to sign-in with no session', function () {
