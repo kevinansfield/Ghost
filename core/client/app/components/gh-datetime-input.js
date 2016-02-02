@@ -3,7 +3,10 @@ import TextInputMixin from 'ghost/mixins/text-input';
 import boundOneWay from 'ghost/utils/bound-one-way';
 import {formatDate} from 'ghost/utils/date-formatting';
 
-const {Component} = Ember;
+const {
+    Component,
+    RSVP
+} = Ember;
 
 export default Component.extend(TextInputMixin, {
     tagName: 'span',
@@ -15,17 +18,19 @@ export default Component.extend(TextInputMixin, {
     inputName: null,
 
     didReceiveAttrs() {
-        let datetime = this.get('datetime') || moment();
+        let datetime = RSVP.resolve(this.get('datetime') || moment.utc());
 
         if (!this.attrs.update) {
             throw new Error(`You must provide an \`update\` action to \`{{${this.templateName}}}\`.`);
         }
 
-        this.set('datetime', formatDate(datetime));
+        datetime.then((date) => {
+            this.set('datetime', formatDate(date));
+        });
     },
 
     focusOut() {
-        let datetime = this.get('datetime');
+        let datetime = this.get('datetime') || moment.utc();
 
         this.attrs.update(datetime);
     }

@@ -16,6 +16,7 @@ export default Model.extend(ValidationEngine, {
     permalinks: attr('string'),
     activeTheme: attr('string'),
     availableThemes: attr(),
+    activeTimezone: attr('timezone-obj', {defaultValue: ['Europe/Dublin', 0]}),
     ghost_head: attr('string'),
     ghost_foot: attr('string'),
     labs: attr('string'),
