@@ -297,7 +297,7 @@ export default Controller.extend(SettingsMenuMixin, {
             if (!userInput) {
                 // Clear out the publishedAt field for a draft
                 if (this.get('model.isDraft')) {
-                    this.set('model.publishedAt', null);
+                    this.set('model.publishedAtOffset', null);
                 }
 
                 return;
@@ -308,7 +308,9 @@ export default Controller.extend(SettingsMenuMixin, {
                 errMessage = 'Published Date must be a valid date with format: ' +
                     'DD MMM YY @ HH:mm (e.g. 6 Dec 14 @ 15:00)';
             }
-            if (newPublishedAt.diff(new Date(), 'h') > 0) {
+
+            // Date is a valid date, so now make it UTC
+            if (newPublishedAt.diff(moment.utc(new Date()), 'hours', true) > 0) {
                 errMessage = 'Published Date cannot currently be in the future.';
             }
 

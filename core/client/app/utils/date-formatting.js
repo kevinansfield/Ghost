@@ -1,19 +1,19 @@
 /* global moment */
 // jscs: disable disallowSpacesInsideParentheses
 
-const parseDateFormats = ['DD MMM YY @ HH:mm', 'DD MMM YY HH:mm',
-                          'D MMM YY @ HH:mm', 'D MMM YY HH:mm',
-                          'DD MMM YYYY @ HH:mm', 'DD MMM YYYY HH:mm',
-                          'D MMM YYYY @ HH:mm', 'D MMM YYYY HH:mm',
-                          'DD/MM/YY @ HH:mm', 'DD/MM/YY HH:mm',
-                          'DD/MM/YYYY @ HH:mm', 'DD/MM/YYYY HH:mm',
-                          'DD-MM-YY @ HH:mm', 'DD-MM-YY HH:mm',
-                          'DD-MM-YYYY @ HH:mm', 'DD-MM-YYYY HH:mm',
-                          'YYYY-MM-DD @ HH:mm', 'YYYY-MM-DD HH:mm',
-                          'DD MMM @ HH:mm', 'DD MMM HH:mm',
-                          'D MMM @ HH:mm', 'D MMM HH:mm'];
+const parseDateFormats = ['DD MMM YY @ HH:mm (UTC Z)', 'DD MMM YY HH:mm (UTC Z)',
+                          'D MMM YY @ HH:mm (UTC Z)', 'D MMM YY HH:mm (UTC Z)',
+                          'DD MMM YYYY @ HH:mm (UTC Z)', 'DD MMM YYYY HH:mm (UTC Z)',
+                          'D MMM YYYY @ HH:mm (UTC Z)', 'D MMM YYYY HH:mm (UTC Z)',
+                          'DD/MM/YY @ HH:mm (UTC Z)', 'DD/MM/YY HH:mm (UTC Z)',
+                          'DD/MM/YYYY @ HH:mm (UTC Z)', 'DD/MM/YYYY HH:mm (UTC Z)',
+                          'DD-MM-YY @ HH:mm (UTC Z)', 'DD-MM-YY HH:mm (UTC Z)',
+                          'DD-MM-YYYY @ HH:mm (UTC Z)', 'DD-MM-YYYY HH:mm (UTC Z)',
+                          'YYYY-MM-DD @ HH:mm (UTC Z)', 'YYYY-MM-DD HH:mm (UTC Z)',
+                          'DD MMM @ HH:mm (UTC Z)', 'DD MMM HH:mm (UTC Z)',
+                          'D MMM @ HH:mm (UTC Z)', 'D MMM HH:mm (UTC Z)'];
 
-const displayDateFormat = 'DD MMM YY @ HH:mm';
+const displayDateFormat = 'DD MMM YY @ HH:mm (UTC Z)';
 
 // Add missing timestamps
 function verifyTimeStamp(dateString) {
@@ -25,7 +25,7 @@ function verifyTimeStamp(dateString) {
 
 // Parses a string to a Moment
 function parseDateString(value) {
-    return value ? moment(verifyTimeStamp(value), parseDateFormats, true) : undefined;
+    return value ? moment.utc(verifyTimeStamp(value), parseDateFormats, true) : undefined;
 }
 
 // Formats a Date or Moment

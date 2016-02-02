@@ -14,8 +14,11 @@ export default Controller.extend(SettingsSaveMixin, {
     showUploadLogoModal: false,
     showUploadCoverModal: false,
 
+    availableTimezones: null,
+
     notifications: service(),
     config: service(),
+    timeZone: service(),
 
     selectedTheme: computed('model.activeTheme', 'themes', function () {
         let activeTheme = this.get('model.activeTheme');
@@ -31,12 +34,27 @@ export default Controller.extend(SettingsSaveMixin, {
         return selectedTheme;
     }),
 
+    selectedTimezone: computed('model.activeTimezone', 'availableTimezones', function () {
+        let activeTimezone = this.get('model.activeTimezone');
+        let availableTimezones = this.get('availableTimezones');
+        return availableTimezones
+            .filterBy('name', activeTimezone)
+            .get('firstObject.name');
+    }),
+
     logoImageSource: computed('model.logo', function () {
         return this.get('model.logo') || '';
     }),
 
     coverImageSource: computed('model.cover', function () {
         return this.get('model.cover') || '';
+    }),
+
+    localTime: computed('selectedTimezone', function () {
+        let offset = this.get('selectedTimezone');
+        // if selectedTimezone is not set, take UTC time as default
+        // because our default Timezone is UTC as well
+        return offset ? moment.tz(offset).format('HH:mm') : moment.utc().format('HH:mm');
     }),
 
     isDatedPermalinks: computed('model.permalinks', {
@@ -79,7 +97,6 @@ export default Controller.extend(SettingsSaveMixin, {
     save() {
         let notifications = this.get('notifications');
         let config = this.get('config');
-
         return this.get('model').save().then((model) => {
             config.set('blogTitle', model.get('title'));
 
@@ -107,7 +124,9 @@ export default Controller.extend(SettingsSaveMixin, {
         setTheme(theme) {
             this.set('model.activeTheme', theme.name);
         },
-
+        setTimezone(timezone) {
+            this.set('model.activeTimezone', timezone.name);
+        },
         toggleUploadCoverModal() {
             this.toggleProperty('showUploadCoverModal');
         },

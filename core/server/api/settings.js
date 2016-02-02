@@ -58,7 +58,8 @@ updateConfigCache = function () {
             cover: (settingsCache.cover && settingsCache.cover.value) || '',
             navigation: (settingsCache.navigation && JSON.parse(settingsCache.navigation.value)) || [],
             postsPerPage: (settingsCache.postsPerPage && settingsCache.postsPerPage.value) || 5,
-            permalinks: (settingsCache.permalinks && settingsCache.permalinks.value) || '/:slug/'
+            permalinks: (settingsCache.permalinks && settingsCache.permalinks.value) || '/:slug/',
+            timezone: (settingsCache.activeTimezone && settingsCache.activeTimezone.value) || 'Europe/Dublin'
         },
         labs: labsValue
     });
