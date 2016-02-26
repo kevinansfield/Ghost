@@ -15,6 +15,8 @@ export default Controller.extend(SettingsSaveMixin, {
     showUploadLogoModal: false,
     showUploadCoverModal: false,
 
+    availableTimezones: null,
+
     notifications: service(),
     config: service(),
     timeZone: service(),
@@ -33,13 +35,13 @@ export default Controller.extend(SettingsSaveMixin, {
         return selectedTheme;
     }),
 
-    selectedTimezone: computed('model.activeTimezone', 'config.availableTimezones', function () {
+    selectedTimezone: computed('model.activeTimezone', 'availableTimezones', function () {
         let [ activeTimezone ] = this.get('model.activeTimezone');
-        let availableTimezones = this.get('config.availableTimezones');
+        let availableTimezones = this.get('availableTimezones');
 
-        return availableTimezones.then((timezones) => {
-            return timezones.filterBy('name', activeTimezone).get('firstObject');
-        });
+        return availableTimezones
+            .filterBy('name', activeTimezone)
+            .get('firstObject.name');
     }),
 
     logoImageSource: computed('model.logo', function () {
