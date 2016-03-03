@@ -39,7 +39,7 @@ export default Controller.extend(SettingsSaveMixin, {
         let availableTimezones = this.get('availableTimezones');
         return availableTimezones
             .filterBy('name', activeTimezone)
-            .get('firstObject.name');
+            .get('firstObject');
     }),
 
     logoImageSource: computed('model.logo', function () {
@@ -51,7 +51,7 @@ export default Controller.extend(SettingsSaveMixin, {
     }),
 
     localTime: computed('selectedTimezone', function () {
-        let offset = this.get('selectedTimezone');
+        let offset = this.get('selectedTimezone.name');
         // if selectedTimezone is not set, take UTC time as default
         // because our default Timezone is UTC as well
         return offset ? moment.tz(offset).format('HH:mm') : moment.utc().format('HH:mm');
