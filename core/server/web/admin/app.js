@@ -33,6 +33,9 @@ module.exports = function setupAdminApp() {
     // must happen AFTER asset loading and BEFORE routing
     adminApp.use(shared.middlewares.urlRedirects.adminRedirect);
 
+    // do not serve any front-end routes on a separated admin url
+    adminApp.use(shared.middlewares.keepAdminSeparate);
+
     // Add in all trailing slashes & remove uppercase
     // must happen AFTER asset loading and BEFORE routing
     adminApp.use(shared.middlewares.prettyUrls);

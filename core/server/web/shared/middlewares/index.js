@@ -85,5 +85,9 @@ module.exports = {
 
     get emitEvents() {
         return require('./emit-events');
+    },
+
+    get keepAdminSeparate() {
+        return require('./keep-admin-separate');
     }
 };

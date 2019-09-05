@@ -44,6 +44,9 @@ module.exports = function setupSiteApp(options = {}) {
     // otherwise we serve assets/pages with http. This can cause mixed content warnings in the admin client.
     siteApp.use(shared.middlewares.urlRedirects);
 
+    // do not serve any admin/api routes on a separated front-end url
+    siteApp.use(shared.middlewares.keepAdminSeparate);
+
     // Static content/assets
     // @TODO make sure all of these have a local 404 error handler
     // Favicon

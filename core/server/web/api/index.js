@@ -1,11 +1,14 @@
 const debug = require('ghost-ignition').debug('web:api:default:app');
 const express = require('express');
 const urlUtils = require('../../lib/url-utils');
-const errorHandler = require('../shared/middlewares/error-handler');
+const shared = require('../shared');
 
 module.exports = function setupApiApp() {
     debug('Parent API setup start');
     const apiApp = express();
+
+    // do not serve any API requests on a separated front-end url
+    apiApp.use(shared.middlewares.keepAdminSeparate);
 
     // Mount different API versions
     apiApp.use(urlUtils.getVersionPath({version: 'v0.1'}), require('./v0.1/app')());
@@ -20,8 +23,8 @@ module.exports = function setupApiApp() {
     apiApp.use(urlUtils.getVersionPath({version: 'canary', type: 'members'}), require('./canary/members/app')());
 
     // Error handling for requests to non-existent API versions
-    apiApp.use(errorHandler.resourceNotFound);
-    apiApp.use(errorHandler.handleJSONResponse);
+    apiApp.use(shared.middlewares.errorHandler.resourceNotFound);
+    apiApp.use(shared.middlewares.errorHandler.handleJSONResponse);
 
     debug('Parent API setup end');
     return apiApp;
