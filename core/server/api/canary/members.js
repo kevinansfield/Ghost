@@ -5,10 +5,13 @@ const membersService = require('../../services/members');
 const common = require('../../lib/common');
 const fsLib = require('../../lib/fs');
 
+const ALLOWED_INCLUDES = ['count.subscriptions'];
+
 const members = {
     docName: 'members',
     browse: {
         options: [
+            'include',
             'limit',
             'fields',
             'filter',
@@ -17,7 +20,13 @@ const members = {
             'page'
         ],
         permissions: true,
-        validation: {},
+        validation: {
+            options: {
+                include: {
+                    values: ALLOWED_INCLUDES
+                }
+            }
+        },
         query(frame) {
             return membersService.api.members.list(frame.options);
         }

@@ -1131,6 +1131,9 @@ ghostBookshelf.Model = ghostBookshelf.Model.extend({
         if (withRelated && withRelated.indexOf('count.posts') > -1) {
             permittedAttributes.push('count.posts');
         }
+        if (withRelated && withRelated.indexOf('count.subscriptions') > -1) {
+            permittedAttributes.push('count.subscriptions');
+        }
         result = {};
         rules = order.split(',');
 

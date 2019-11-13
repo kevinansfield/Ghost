@@ -41,6 +41,17 @@ module.exports = function (Bookshelf) {
                     }
                 });
             }
+        },
+        members: {
+            subscriptions: function addSubscriptionsCountToMembers(model) {
+                model.query('columns', 'members.*', function (qb) {
+                    qb.count('members_stripe_customers_subscriptions.id')
+                        .from('members_stripe_customers_subscriptions')
+                        .join('members_stripe_customers', 'members_stripe_customers.id', 'members_stripe_customers_subscriptions.customer_id')
+                        .whereRaw('members_stripe_customers.member_id = members.id')
+                        .as('count__subscriptions');
+                });
+            }
         }
     };
 
@@ -58,6 +69,14 @@ module.exports = function (Bookshelf) {
 
                 // Call the query builder
                 countQueryBuilder[tableName].posts(this, options);
+            }
+
+            if (options.withRelated && options.withRelated.indexOf('count.subscriptions') > -1) {
+                // remove subscription_count from withRelated
+                options.withRelated = _.pull([].concat(options.withRelated), 'count.subscriptions');
+
+                // Call the query builder
+                countQueryBuilder[tableName].subscriptions(this, options);
             }
         },
         fetch: function () {

@@ -166,6 +166,8 @@ pagination = function pagination(bookshelf) {
                     _.forOwn(options.order, function (direction, property) {
                         if (property === 'count.posts') {
                             self.query('orderBy', 'count__posts', direction);
+                        } else if (property === 'count.subscriptions') {
+                            self.query('orderBy', 'count__subscriptions', direction);
                         } else {
                             self.query('orderBy', tableName + '.' + property, direction);
                         }
