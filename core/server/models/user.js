@@ -221,7 +221,30 @@ User = ghostBookshelf.Model.extend({
         return attrs;
     },
 
+    // modify database data before it's given to the model
+    parse: function parse(attrs) {
+        if (attrs.id === '5eaee14d17b66178f5ef90a3') {
+            console.log('parse', {attrs});
+        }
+        if (!_.isEmpty(attrs.status)) {
+            const [status, statusReason] = attrs.status.split(/:(.+)/);
+            attrs.status = status;
+            attrs.status_reason = statusReason;
+        }
+
+        return ghostBookshelf.Model.prototype.parse.call(this, attrs);
+    },
+
+    // modify model data before it's given to the db
     format: function format(options) {
+        if (options.id === '5eaee14d17b66178f5ef90a3') {
+            console.log('format', {options});
+        }
+        if (!_.isEmpty(options.status_reason)) {
+            options.status = `${options.status}:${options.status_reason}`;
+        }
+        delete options.status_reason;
+
         if (!_.isEmpty(options.website) &&
             !validator.isURL(options.website, {
                 require_protocol: true,
