@@ -1,6 +1,8 @@
 import ApplicationAdapter from 'ghost-admin/adapters/application';
+import classic from 'ember-classic-decorator';
 import {pluralize} from 'ember-inflector';
 
+@classic
 export default class Setting extends ApplicationAdapter {
     updateRecord(store, type, record) {
         let data = {};

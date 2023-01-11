@@ -1,9 +1,9 @@
 import Service, {inject as service} from '@ember/service';
-import Setting from '../models/setting';
 import ValidationEngine from 'ghost-admin/mixins/validation-engine';
 import classic from 'ember-classic-decorator';
-import {computed, defineProperty, get} from '@ember/object';
+import {computed, defineProperty} from '@ember/object';
 import {tracked} from '@glimmer/tracking';
+
 @classic
 export default class SettingsService extends Service.extend(ValidationEngine) {
     @service store;
@@ -22,11 +22,9 @@ export default class SettingsService extends Service.extend(ValidationEngine) {
     init() {
         super.init(...arguments);
 
-        // TODO: update to use .getSchemaDefinitionService().attributesDefinitionFor({type: 'settings'});
-        // in later Ember versions
-        const attributes = get(Setting, 'attributes');
+        const attributes = this.store.getSchemaDefinitionService().attributesDefinitionFor({type: 'setting'});
 
-        for (const [name] of attributes) {
+        for (const name in attributes) {
             if (!Object.prototype.hasOwnProperty.call(this, name)) {
                 // a standard defineProperty here was not autotracking correctly - retry in a later Ember version
                 defineProperty(this, name, computed(`settingsModel.${name}`, {

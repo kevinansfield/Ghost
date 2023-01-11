@@ -42,17 +42,17 @@ export default Mixin.create({
     // was mixed into, i.e. the controller or Ember Data model.
     validators: null,
 
-    // This adds the Errors object to the validation engine, and shouldn't affect
-    // ember-data models because they essentially use the same thing
-    errors: null,
-
     // Store whether a property has been validated yet, so that we know whether or not
     // to show error / success validation for a field
     hasValidated: null,
 
     init() {
         this._super(...arguments);
+
+        // This adds the Errors object to the validation engine, and shouldn't affect
+        // ember-data models because they essentially use the same thing
         this.set('errors', Errors.create());
+
         this.set('hasValidated', emberA());
 
         this.validators = {

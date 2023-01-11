@@ -4,15 +4,15 @@ import ghostPaths from 'ghost-admin/utils/ghost-paths';
 import {inject as service} from '@ember/service';
 import {underscore} from '@ember/string';
 
-export default RESTAdapter.extend(AjaxServiceSupport, {
-    host: window.location.origin,
-    namespace: ghostPaths().apiRoot.slice(1),
+export default class BaseAdapter extends RESTAdapter.extend(AjaxServiceSupport) {
+    host = window.location.origin;
+    namespace = ghostPaths().apiRoot.slice(1);
 
-    session: service(),
+    @service session;
 
     shouldBackgroundReloadRecord() {
         return false;
-    },
+    }
 
     query(store, type, query) {
         let id;
@@ -23,16 +23,16 @@ export default RESTAdapter.extend(AjaxServiceSupport, {
         }
 
         return this.ajax(this.buildURL(type.modelName, id), 'GET', {data: query});
-    },
+    }
 
     pathForType() {
-        const type = this._super(...arguments);
+        const type = super.pathForType(...arguments);
         return underscore(type);
-    },
+    }
 
     buildURL() {
         // Ensure trailing slashes
-        let url = this._super(...arguments);
+        let url = super.buildURL(...arguments);
         let parsedUrl = new URL(url);
 
         if (!parsedUrl.pathname.endsWith('/')) {
@@ -41,4 +41,4 @@ export default RESTAdapter.extend(AjaxServiceSupport, {
 
         return parsedUrl.toString();
     }
-});
+}
