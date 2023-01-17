@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import ghostPaths from 'ghost-admin/utils/ghost-paths';
+import run from '@ember/runloop';
 import {GENERIC_ERROR_MESSAGE} from 'ghost-admin/services/notifications';
 import {
     UnsupportedMediaTypeError,
@@ -12,7 +13,6 @@ import {htmlSafe} from '@ember/template';
 import {inject} from 'ghost-admin/decorators/inject';
 import {isArray} from '@ember/array';
 import {isBlank} from '@ember/utils';
-import {run} from '@ember/runloop';
 import {inject as service} from '@ember/service';
 
 export const IMAGE_MIME_TYPES = 'image/gif,image/jpg,image/jpeg,image/png,image/svg+xml,image/webp';
@@ -203,7 +203,7 @@ export default Component.extend({
 
     _uploadProgress(event) {
         if (event.lengthComputable) {
-            run(() => {
+            run.run(() => {
                 let percentage = Math.round((event.loaded / event.total) * 100);
                 if (!this.isDestroyed && !this.isDestroying) {
                     this.set('uploadPercentage', percentage);

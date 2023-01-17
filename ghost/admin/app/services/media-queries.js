@@ -1,7 +1,7 @@
 import Evented from '@ember/object/evented';
 import Service from '@ember/service';
 import classic from 'ember-classic-decorator';
-import {run} from '@ember/runloop';
+import run from '@ember/runloop';
 
 const MEDIA_QUERIES = {
     maxWidth600: '(max-width: 600px)',

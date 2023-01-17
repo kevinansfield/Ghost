@@ -4,7 +4,7 @@ import {IMAGE_EXTENSIONS, IMAGE_MIME_TYPES} from 'ghost-admin/components/gh-imag
 import {action} from '@ember/object';
 import {inject} from 'ghost-admin/decorators/inject';
 import {isBlank} from '@ember/utils';
-import {run} from '@ember/runloop';
+import run from '@ember/runloop';
 import {inject as service} from '@ember/service';
 import {set} from '@ember/object';
 

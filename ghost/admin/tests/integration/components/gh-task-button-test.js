@@ -3,7 +3,7 @@ import {click, find, render, settled, waitFor} from '@ember/test-helpers';
 import {defineProperty} from '@ember/object';
 import {describe, it} from 'mocha';
 import {expect} from 'chai';
-import {run} from '@ember/runloop';
+import run from '@ember/runloop';
 import {setupRenderingTest} from 'ember-mocha';
 import {task, timeout} from 'ember-concurrency';
 

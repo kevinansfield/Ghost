@@ -10,7 +10,7 @@ import {
 } from 'ghost-admin/components/gh-image-uploader';
 import {TrackedObject} from 'tracked-built-ins';
 import {inject} from 'ghost-admin/decorators/inject';
-import {run} from '@ember/runloop';
+import run from '@ember/runloop';
 import {task} from 'ember-concurrency';
 import {tracked} from '@glimmer/tracking';
 

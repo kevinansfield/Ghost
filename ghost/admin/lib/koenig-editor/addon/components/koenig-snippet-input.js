@@ -4,7 +4,7 @@ import {TOOLBAR_MARGIN} from './koenig-toolbar';
 import {action} from '@ember/object';
 import {guidFor} from '@ember/object/internals';
 import {htmlSafe} from '@ember/template';
-import {run} from '@ember/runloop';
+import run from '@ember/runloop';
 import {inject as service} from '@ember/service';
 import {tracked} from '@glimmer/tracking';
 

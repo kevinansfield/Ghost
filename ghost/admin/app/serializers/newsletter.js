@@ -1,6 +1,7 @@
-/* eslint-disable camelcase */
 import ApplicationSerializer from './application';
+import classic from 'ember-classic-decorator';
 
+@classic
 export default class MemberSerializer extends ApplicationSerializer {
     // HACK: Ember Data doesn't expose `meta` properties consistently
     //  - https://github.com/emberjs/data/issues/2905

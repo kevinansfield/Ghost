@@ -14,7 +14,7 @@ import {getContentFromPasteEvent, parsePostFromPaste} from 'mobiledoc-kit/utils/
 import {getLinkMarkupFromRange} from '../utils/markup-utils';
 import {registerBasicInputTextExpansions} from '../options/text-expansions';
 import {removeBR} from '../options/basic-html-parser-plugins';
-import {run} from '@ember/runloop';
+import run from '@ember/runloop';
 import {softReturn as softReturnAtom} from '../options/atoms';
 
 // TODO: extract core to share functionality between this and `{{koenig-editor}}`

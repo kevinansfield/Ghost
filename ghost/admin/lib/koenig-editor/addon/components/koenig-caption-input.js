@@ -1,10 +1,10 @@
 import Component from '@ember/component';
 import Key from 'mobiledoc-kit/utils/key';
 import classic from 'ember-classic-decorator';
+import run from '@ember/runloop';
 import {action, computed} from '@ember/object';
 import {classNameBindings, tagName} from '@ember-decorators/component';
 import {kgStyle} from '../helpers/kg-style';
-import {run} from '@ember/runloop';
 import {inject as service} from '@ember/service';
 
 @classic

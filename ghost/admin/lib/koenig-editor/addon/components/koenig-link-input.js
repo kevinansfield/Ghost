@@ -8,7 +8,7 @@ import {attributeBindings, classNames} from '@ember-decorators/component';
 import {getLinkMarkupFromRange} from '../utils/markup-utils';
 import {htmlSafe} from '@ember/template';
 import {inject} from 'ghost-admin/decorators/inject';
-import {run} from '@ember/runloop';
+import run from '@ember/runloop';
 
 // pixels that should be added to the `left` property of the tick adjustment styles
 // TODO: handle via CSS?

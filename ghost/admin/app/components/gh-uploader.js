@@ -2,6 +2,7 @@ import Component from '@ember/component';
 import EmberObject, {get} from '@ember/object';
 import classic from 'ember-classic-decorator';
 import ghostPaths from 'ghost-admin/utils/ghost-paths';
+import run from '@ember/runloop';
 import {
     ICON_EXTENSIONS,
     ICON_MIME_TYPES,
@@ -11,7 +12,6 @@ import {
 import {all, task} from 'ember-concurrency';
 import {isArray} from '@ember/array';
 import {isEmpty} from '@ember/utils';
-import {run} from '@ember/runloop';
 import {inject as service} from '@ember/service';
 
 // TODO: this is designed to be a more re-usable/composable upload component, it
@@ -260,7 +260,7 @@ export default Component.extend({
                     let xhr = new window.XMLHttpRequest();
 
                     xhr.upload.addEventListener('progress', (event) => {
-                        run(() => {
+                        run.run(() => {
                             tracker.update(event);
                             this._updateProgress();
                         });

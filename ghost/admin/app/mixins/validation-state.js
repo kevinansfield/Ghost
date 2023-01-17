@@ -4,7 +4,7 @@ import {isEmpty} from '@ember/utils';
 // eslint-disable-next-line ghost/ember/no-observers
 import {observer} from '@ember/object';
 import {on} from '@ember/object/evented';
-import {run} from '@ember/runloop';
+import run from '@ember/runloop';
 
 /**
  * Adds `success` or `error` classes to the element based on the passed

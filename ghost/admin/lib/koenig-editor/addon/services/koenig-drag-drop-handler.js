@@ -6,7 +6,7 @@ import Service from '@ember/service';
 import {A} from '@ember/array';
 import {alias} from '@ember/object/computed';
 import {didCancel, task, waitForProperty} from 'ember-concurrency';
-import {run} from '@ember/runloop';
+import run from '@ember/runloop';
 import {inject as service} from '@ember/service';
 
 // this service allows registration of "containers"

@@ -6,7 +6,7 @@ import {attributeBindings, classNames} from '@ember-decorators/component';
 import {getEventTargetMatchingTag} from 'mobiledoc-kit/utils/element-utils';
 import {htmlSafe} from '@ember/template';
 import {inject} from 'ghost-admin/decorators/inject';
-import {run} from '@ember/runloop';
+import run from '@ember/runloop';
 
 // gap between link and toolbar bottom
 const TOOLBAR_MARGIN = 8;

@@ -1,5 +1,7 @@
 import ApplicationAdapter from 'ghost-admin/adapters/application';
+import classic from 'ember-classic-decorator';
 
+@classic
 export default class Offer extends ApplicationAdapter {
     queryRecord(store, type, query) {
         if (query && query.id) {

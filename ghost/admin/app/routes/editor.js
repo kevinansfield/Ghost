@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import AuthenticatedRoute from 'ghost-admin/routes/authenticated';
-import {run} from '@ember/runloop';
+import run from '@ember/runloop';
 import {inject as service} from '@ember/service';
 
 export default AuthenticatedRoute.extend({

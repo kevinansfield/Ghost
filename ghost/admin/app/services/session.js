@@ -1,9 +1,9 @@
 import ESASessionService from 'ember-simple-auth/services/session';
 import RSVP from 'rsvp';
+import run from '@ember/runloop';
 import {configureScope} from '@sentry/ember';
 import {getOwner} from '@ember/application';
 import {inject} from 'ghost-admin/decorators/inject';
-import {run} from '@ember/runloop';
 import {inject as service} from '@ember/service';
 import {task} from 'ember-concurrency';
 import {tracked} from '@glimmer/tracking';
@@ -145,6 +145,7 @@ export default class SessionService extends ESASessionService {
             try {
                 yield this.populateUser();
             } catch (err) {
+                console.error(err); // eslint-disable-line
                 yield this.invalidate();
             }
 

@@ -1,7 +1,8 @@
-/* eslint-disable camelcase */
 import ApplicationSerializer from 'ghost-admin/serializers/application';
+import classic from 'ember-classic-decorator';
 import {EmbeddedRecordsMixin} from '@ember-data/serializer/rest';
 
+@classic
 export default class PostSerializer extends ApplicationSerializer.extend(EmbeddedRecordsMixin) {
     // settings for the EmbeddedRecordsMixin.
     attrs = {

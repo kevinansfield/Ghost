@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
 import Component from '@glimmer/component';
 import RSVP from 'rsvp';
+import run from '@ember/runloop';
 import {action} from '@ember/object';
 import {isBlank, isEmpty} from '@ember/utils';
 import {pluralize} from 'ember-inflector';
-import {run} from '@ember/runloop';
 import {inject as service} from '@ember/service';
 import {task, timeout, waitForProperty} from 'ember-concurrency';
 

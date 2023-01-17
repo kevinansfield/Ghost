@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import classic from 'ember-classic-decorator';
+import run, {debounce} from '@ember/runloop';
 import {assert} from '@ember/debug';
-import {debounce, run} from '@ember/runloop';
 
 @classic
 export default class AspectRatioBox extends Component {

@@ -241,7 +241,10 @@ export default class GhPostSettingsMenu extends Component {
     setPublishedAtBlogTime(time) {
         let post = this.post;
 
-        post.get('errors').remove('publishedAtBlogDate');
+        if (post.errors.errorsFor('publishedAtBlogDate').length) {
+            console.log(post.errors.errorsFor('publishedAtBlogDate')[0]);
+            post.errors.remove('publishedAtBlogDate');
+        }
 
         if (post.get('isNew') || time === post.get('publishedAtBlogTime')) {
             post.validate({property: 'publishedAtBlog'});

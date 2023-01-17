@@ -1,9 +1,9 @@
 import Component from '@ember/component';
 import RSVP from 'rsvp';
+import run from '@ember/runloop';
 import {computed} from '@ember/object';
 import {A as emberA} from '@ember/array';
 import {isBlank} from '@ember/utils';
-import {run} from '@ember/runloop';
 import {inject as service} from '@ember/service';
 
 const FullScreenModalComponent = Component.extend({

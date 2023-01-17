@@ -14,7 +14,7 @@ import {assign} from '@ember/polyfills';
 import {getContentFromPasteEvent} from 'mobiledoc-kit/utils/parse-utils';
 import {getLinkMarkupFromRange} from '../utils/markup-utils';
 import {registerBasicTextareaTextExpansions} from '../options/text-expansions';
-import {run} from '@ember/runloop';
+import run from '@ember/runloop';
 
 // TODO: extract core to share functionality between this and `{{koenig-editor}}`
 

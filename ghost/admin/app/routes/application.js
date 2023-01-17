@@ -181,6 +181,7 @@ export default Route.extend(ShortcutsRoute, {
             try {
                 await this.session.populateUser();
             } catch (e) {
+                console.error(e); // eslint-disable-line
                 await this.session.invalidate();
             }
 

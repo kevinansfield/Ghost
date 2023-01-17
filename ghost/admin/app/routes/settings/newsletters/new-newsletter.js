@@ -17,6 +17,8 @@ export default class NewNewsletterRoute extends AdminRoute {
      * Before we allow the creation of a new newsletter, we should check the limits and return to the newsletters page if required.
      */
     async beforeModel() {
+        super.beforeModel(...arguments);
+
         try {
             await this.limit.limiter.errorIfWouldGoOverLimit('newsletters');
         } catch (error) {

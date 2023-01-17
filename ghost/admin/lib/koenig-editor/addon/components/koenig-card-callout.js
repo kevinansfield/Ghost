@@ -5,7 +5,7 @@ import {EmojiButton} from '@joeattardi/emoji-button';
 import {action} from '@ember/object';
 import {inject} from 'ghost-admin/decorators/inject';
 import {isBlank} from '@ember/utils';
-import {run} from '@ember/runloop';
+import run from '@ember/runloop';
 import {inject as service} from '@ember/service';
 import {set} from '@ember/object';
 import {tracked} from '@glimmer/tracking';

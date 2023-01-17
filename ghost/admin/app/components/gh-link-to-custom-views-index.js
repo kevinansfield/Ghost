@@ -63,6 +63,6 @@ export default class GhCustomViewsIndexLinkComponent extends Component {
             return this.args.query;
         }
 
-        return undefined;
+        return {};
     }
 }

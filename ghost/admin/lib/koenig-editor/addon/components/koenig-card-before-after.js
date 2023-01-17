@@ -4,7 +4,7 @@ import {
     IMAGE_MIME_TYPES
 } from 'ghost-admin/components/gh-image-uploader';
 import {action} from '@ember/object';
-import {run} from '@ember/runloop';
+import run from '@ember/runloop';
 import {tracked} from '@glimmer/tracking';
 
 export default class KoenigCardBeforeAfterComponent extends Component {

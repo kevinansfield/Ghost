@@ -1,11 +1,11 @@
 import ctrlOrCmd from 'ghost-admin/utils/ctrl-or-cmd';
+import run from '@ember/runloop';
 import windowProxy from 'ghost-admin/utils/window-proxy';
 import {Response} from 'miragejs';
 import {afterEach, beforeEach, describe, it} from 'mocha';
 import {authenticateSession, invalidateSession} from 'ember-simple-auth/test-support';
 import {currentRouteName, currentURL, fillIn, findAll, triggerKeyEvent, visit, waitFor} from '@ember/test-helpers';
 import {expect} from 'chai';
-import {run} from '@ember/runloop';
 import {setupApplicationTest} from 'ember-mocha';
 import {setupMirage} from 'ember-cli-mirage/test-support';
 

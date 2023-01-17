@@ -4,7 +4,7 @@ import classic from 'ember-classic-decorator';
 import {action, computed, set} from '@ember/object';
 import {formatTextReplacementHtml} from './koenig-text-replacement-html-input';
 import {isBlank} from '@ember/utils';
-import {run} from '@ember/runloop';
+import run from '@ember/runloop';
 
 @classic
 export default class KoenigCardEmail extends Component {

@@ -1,7 +1,8 @@
-/* eslint-disable camelcase */
 import ApplicationSerializer from './application';
+import classic from 'ember-classic-decorator';
 import {pluralize} from 'ember-inflector';
 
+@classic
 export default class LabelSerializer extends ApplicationSerializer {
     attrs = {
         createdAtUTC: {key: 'created_at'},

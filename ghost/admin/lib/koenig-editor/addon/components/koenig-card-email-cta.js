@@ -5,7 +5,7 @@ import {formatTextReplacementHtml} from './koenig-text-replacement-html-input';
 import {guidFor} from '@ember/object/internals';
 import {inject} from 'ghost-admin/decorators/inject';
 import {isBlank} from '@ember/utils';
-import {run} from '@ember/runloop';
+import run from '@ember/runloop';
 import {schedule} from '@ember/runloop';
 import {inject as service} from '@ember/service';
 import {set} from '@ember/object';

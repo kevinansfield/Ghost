@@ -1,6 +1,8 @@
 import ApplicationSerializer from 'ghost-admin/serializers/application';
+import classic from 'ember-classic-decorator';
 import {pluralize} from 'ember-inflector';
 
+@classic
 export default class Setting extends ApplicationSerializer {
     serializeIntoHash(hash, type, record, options) {
         // Settings API does not want ids
@@ -23,7 +25,7 @@ export default class Setting extends ApplicationSerializer {
     }
 
     serializeAttribute(snapshot, json, key, attributes) {
-        // Only serialize attributes that have changed and 
+        // Only serialize attributes that have changed and
         // send a partial update to the API to avoid conflicts
         // with different screens using the same model
         // See https://github.com/TryGhost/Ghost/issues/15470

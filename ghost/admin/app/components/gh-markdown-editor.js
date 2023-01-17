@@ -3,13 +3,13 @@ import ShortcutsMixin from 'ghost-admin/mixins/shortcuts';
 import classic from 'ember-classic-decorator';
 import ctrlOrCmd from 'ghost-admin/utils/ctrl-or-cmd';
 import formatMarkdown from 'ghost-admin/utils/format-markdown';
+import run from '@ember/runloop';
 import {action, computed} from '@ember/object';
 import {assign} from '@ember/polyfills';
 import {classNameBindings, classNames} from '@ember-decorators/component';
 import {htmlSafe} from '@ember/template';
 import {inject} from 'ghost-admin/decorators/inject';
 import {isEmpty, typeOf} from '@ember/utils';
-import {run} from '@ember/runloop';
 import {inject as service} from '@ember/service';
 
 /* eslint-disable ghost/ember/no-side-effects */

@@ -1,6 +1,6 @@
 /* global key */
 import Mixin from '@ember/object/mixin';
-import {run} from '@ember/runloop';
+import run from '@ember/runloop';
 import {typeOf} from '@ember/utils';
 
 import * as shortcutsCache from '../utils/shortcuts';
@@ -65,7 +65,7 @@ export default Mixin.create({
             key(shortcut, scope, (event) => {
                 // stop things like ctrl+s from actually opening a save dialog
                 event.preventDefault();
-                run(this, function () {
+                run.run(this, function () {
                     this.send(action, options);
                 });
             });

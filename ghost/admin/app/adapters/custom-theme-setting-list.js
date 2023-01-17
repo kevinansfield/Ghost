@@ -1,5 +1,7 @@
 import ApplicationAdapter from 'ghost-admin/adapters/application';
+import classic from 'ember-classic-decorator';
 
+@classic
 export default class CustomThemeSettingListAdapter extends ApplicationAdapter {
     // we use `custom-theme-setting-list` model as a workaround for saving all
     // custom theme setting records in one request so it uses the base model url

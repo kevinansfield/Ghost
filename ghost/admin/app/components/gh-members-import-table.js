@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
+import run from '@ember/runloop';
 import {action} from '@ember/object';
-import {run} from '@ember/runloop';
 import {inject as service} from '@ember/service';
 import {tracked} from '@glimmer/tracking';
 

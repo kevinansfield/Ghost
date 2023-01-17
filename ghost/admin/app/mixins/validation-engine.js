@@ -49,9 +49,11 @@ export default Mixin.create({
     init() {
         this._super(...arguments);
 
-        // This adds the Errors object to the validation engine, and shouldn't affect
-        // ember-data models because they essentially use the same thing
-        this.set('errors', Errors.create());
+        // Adds the Errors object to mixed in object
+        // Model instances have this by default and shouldn't be overwritten
+        if (this instanceof Model === false) {
+            this.set('errors', Errors.create());
+        }
 
         this.set('hasValidated', emberA());
 
@@ -139,7 +141,7 @@ export default Mixin.create({
     * This allows us to run validation before actually trying to save the model to the server.
     * You can supply options to be passed into the `validate` method, since the ED `save` method takes no options.
     */
-    save(options) {
+    async save(options) {
         let {_super} = this;
 
         options = options || {};
@@ -154,19 +156,43 @@ export default Mixin.create({
 
         // If validation fails, reject with validation errors.
         // If save to the server fails, reject with server response.
-        return this.validate(options).then(() => {
+        try {
+            await this.validate(options);
+        } catch (e) {
+            if (e.message.match(/becameInvalid|becameValid/)) {
+                // ignore these, they are thrown by Ember Data when using .errors
+            } else {
+                throw e;
+            }
+        }
+
+        try {
             if (typeof this.beforeSave === 'function') {
                 this.beforeSave();
             }
+        } catch (e) {
+            if (e.message.match(/becameValid|becameInvalid/)) {
+                // ignore these, they are thrown by Ember Data when using .errors
+            } else {
+                throw e;
+            }
+        }
+
+        try {
             return _super.call(this, options);
-        }).catch((result) => {
+        } catch (result) {
+            if (result.message.match(/becameValid/)) {
+                // ignore this, it's thrown by Ember Data when using .errors transitions back to a valid state
+                return RSVP.resolve();
+            }
+
             // server save failed or validator type doesn't exist
             if (result && !isEmberArray(result)) {
                 throw result;
             }
 
             return RSVP.reject(result);
-        });
+        }
     },
 
     actions: {

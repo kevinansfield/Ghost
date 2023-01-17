@@ -32,7 +32,7 @@ import {getOwner} from '@ember/application';
 import {getParent} from '../lib/dnd/utils';
 import {utils as ghostHelperUtils} from '@tryghost/helpers';
 import {guidFor} from '@ember/object/internals';
-import {run} from '@ember/runloop';
+import run from '@ember/runloop';
 import {svgJar} from 'ghost-admin/helpers/svg-jar';
 import {task, waitForProperty} from 'ember-concurrency';
 

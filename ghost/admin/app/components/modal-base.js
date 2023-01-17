@@ -1,6 +1,6 @@
 /* global key */
 import Component from '@ember/component';
-import {run} from '@ember/runloop';
+import run from '@ember/runloop';
 
 export default Component.extend({
     tagName: 'section',
@@ -32,7 +32,7 @@ export default Component.extend({
     },
 
     _setupShortcuts() {
-        run(function () {
+        run.run(function () {
             document.activeElement.blur();
         });
 

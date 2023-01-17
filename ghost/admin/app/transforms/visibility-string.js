@@ -1,9 +1,11 @@
 import Transform from '@ember-data/serializer/transform';
+import classic from 'ember-classic-decorator';
 
 // post visibility supports `'members'` and `'paid'` as special-case options
 // but that doesn't map well for options in our token select inputs so we
 // expand/convert them here to make usage elsewhere easier
 
+@classic
 export default class VisibilityString extends Transform {
     deserialize(serialized) {
         if (serialized === 'members') {

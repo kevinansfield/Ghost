@@ -3,7 +3,7 @@ import mobiledocParsers from 'mobiledoc-kit/parsers/mobiledoc';
 import {action} from '@ember/object';
 import {isArray} from '@ember/array';
 import {isEmpty} from '@ember/utils';
-import {run} from '@ember/runloop';
+import run from '@ember/runloop';
 import {tracked} from '@glimmer/tracking';
 
 const Y_OFFSET = 16;

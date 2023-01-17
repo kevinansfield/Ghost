@@ -4,7 +4,7 @@ import classic from 'ember-classic-decorator';
 import {attributeBindings, classNameBindings} from '@ember-decorators/component';
 import {computed} from '@ember/object';
 import {htmlSafe} from '@ember/template';
-import {run} from '@ember/runloop';
+import run from '@ember/runloop';
 import {inject as service} from '@ember/service';
 
 const TICK_HEIGHT = 8;

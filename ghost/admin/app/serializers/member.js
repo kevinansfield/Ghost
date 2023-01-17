@@ -1,7 +1,8 @@
-/* eslint-disable camelcase */
 import ApplicationSerializer from './application';
+import classic from 'ember-classic-decorator';
 import {EmbeddedRecordsMixin} from '@ember-data/serializer/rest';
 
+@classic
 export default class MemberSerializer extends ApplicationSerializer.extend(EmbeddedRecordsMixin) {
     attrs = {
         createdAtUTC: {key: 'created_at'},

@@ -1,8 +1,8 @@
 import TextArea from '@ember/component/text-area';
 import TextInputMixin from 'ghost-admin/mixins/text-input';
 import classic from 'ember-classic-decorator';
+import run from '@ember/runloop';
 import {classNames} from '@ember-decorators/component';
-import {run} from '@ember/runloop';
 import {inject as service} from '@ember/service';
 
 @classic

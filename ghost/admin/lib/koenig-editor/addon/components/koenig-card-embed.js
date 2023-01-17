@@ -2,11 +2,11 @@ import classic from 'ember-classic-decorator';
 import {inject as service} from '@ember/service';
 /* global noframe */
 import Component from '@ember/component';
+import run from '@ember/runloop';
 import {NO_CURSOR_MOVEMENT} from './koenig-editor';
 import {action, computed, set} from '@ember/object';
 import {utils as ghostHelperUtils} from '@tryghost/helpers';
 import {isBlank} from '@ember/utils';
-import {run} from '@ember/runloop';
 import {task} from 'ember-concurrency';
 
 const {countWords} = ghostHelperUtils;

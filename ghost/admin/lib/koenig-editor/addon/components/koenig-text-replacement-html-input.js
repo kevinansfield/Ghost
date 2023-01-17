@@ -14,7 +14,7 @@ import {assign} from '@ember/polyfills';
 import {getContentFromPasteEvent} from 'mobiledoc-kit/utils/parse-utils';
 import {getLinkMarkupFromRange} from '../utils/markup-utils';
 import {registerTextReplacementTextExpansions} from '../options/text-expansions';
-import {run} from '@ember/runloop';
+import run from '@ember/runloop';
 
 export function formatTextReplacementHtml(html) {
     return (html || '').replace(/\{(.*?)\}/g, '<code>$&</code>');

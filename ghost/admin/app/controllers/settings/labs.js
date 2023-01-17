@@ -15,7 +15,7 @@ import {action} from '@ember/object';
 import {inject} from 'ghost-admin/decorators/inject';
 import {isBlank} from '@ember/utils';
 import {isArray as isEmberArray} from '@ember/array';
-import {run} from '@ember/runloop';
+import run from '@ember/runloop';
 import {task, timeout} from 'ember-concurrency';
 
 const {Promise} = RSVP;

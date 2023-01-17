@@ -1,9 +1,11 @@
 import Transform from '@ember-data/serializer/transform';
+import classic from 'ember-classic-decorator';
 
 // the members segment supports `'none'` and `'all'` as special-case options
 // but that doesn't map well for options in our token select inputs so we
 // expand/convert them here to make usage elsewhere easier
 
+@classic
 export default class MembersSegmentStringTransform extends Transform {
     deserialize(serialized) {
         if (serialized === 'all') {

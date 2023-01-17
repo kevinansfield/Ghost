@@ -8,7 +8,7 @@ import {
 import {utils as ghostHelperUtils} from '@tryghost/helpers';
 import {htmlSafe} from '@ember/template';
 import {isEmpty} from '@ember/utils';
-import {run} from '@ember/runloop';
+import run from '@ember/runloop';
 import {inject as service} from '@ember/service';
 
 const MAX_IMAGES = 9;

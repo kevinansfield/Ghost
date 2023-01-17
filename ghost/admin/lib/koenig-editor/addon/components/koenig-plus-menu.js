@@ -4,7 +4,7 @@ import mobiledocParsers from 'mobiledoc-kit/parsers/mobiledoc';
 import {action, computed} from '@ember/object';
 import {attributeBindings, classNames} from '@ember-decorators/component';
 import {htmlSafe} from '@ember/template';
-import {run} from '@ember/runloop';
+import run from '@ember/runloop';
 
 @classic
 @classNames('absolute')

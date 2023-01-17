@@ -1,6 +1,6 @@
 import Service, {inject as service} from '@ember/service';
+import run from '@ember/runloop';
 import {isEmpty} from '@ember/utils';
-import {run} from '@ember/runloop';
 import {task} from 'ember-concurrency';
 import {tracked} from '@glimmer/tracking';
 
@@ -57,7 +57,7 @@ export default class CustomThemeSettingsServices extends Service {
 
         // unload stored settings and re-load from API so they always match active theme
         // run is required here, see https://github.com/emberjs/data/issues/5447#issuecomment-845672812
-        run(() => this.store.unloadAll('custom-theme-setting'));
+        run.run(() => this.store.unloadAll('custom-theme-setting'));
 
         const settings = yield this.store.findAll('custom-theme-setting');
         this.settings = settings;

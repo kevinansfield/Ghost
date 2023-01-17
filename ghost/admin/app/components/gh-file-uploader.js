@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import run from '@ember/runloop';
 import {GENERIC_ERROR_MESSAGE} from 'ghost-admin/services/notifications';
 import {
     UnsupportedMediaTypeError,
@@ -10,7 +11,6 @@ import {computed} from '@ember/object';
 import {htmlSafe} from '@ember/template';
 import {isBlank} from '@ember/utils';
 import {isArray as isEmberArray} from '@ember/array';
-import {run} from '@ember/runloop';
 import {inject as service} from '@ember/service';
 
 const DEFAULTS = {
@@ -217,7 +217,7 @@ export default Component.extend({
 
     _uploadProgress(event) {
         if (event.lengthComputable && !this.isDestroyed && !this.isDestroying) {
-            run(() => {
+            run.run(() => {
                 let percentage = Math.round((event.loaded / event.total) * 100);
                 this.set('uploadPercentage', percentage);
             });

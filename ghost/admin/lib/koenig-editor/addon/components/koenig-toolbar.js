@@ -3,7 +3,7 @@ import classic from 'ember-classic-decorator';
 import {action, computed} from '@ember/object';
 import {attributeBindings, classNames} from '@ember-decorators/component';
 import {htmlSafe} from '@ember/template';
-import {run} from '@ember/runloop';
+import run from '@ember/runloop';
 import {inject as service} from '@ember/service';
 import {task, timeout} from 'ember-concurrency';
 

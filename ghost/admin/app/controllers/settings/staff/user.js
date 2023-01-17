@@ -12,7 +12,7 @@ import windowProxy from 'ghost-admin/utils/window-proxy';
 import {TrackedObject} from 'tracked-built-ins';
 import {action} from '@ember/object';
 import {inject} from 'ghost-admin/decorators/inject';
-import {run} from '@ember/runloop';
+import run from '@ember/runloop';
 import {inject as service} from '@ember/service';
 import {task, taskGroup, timeout} from 'ember-concurrency';
 import {tracked} from '@glimmer/tracking';

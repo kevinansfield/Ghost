@@ -1,9 +1,9 @@
 import Component from '@ember/component';
 import DropdownMixin from 'ghost-admin/mixins/dropdown-mixin';
 import classic from 'ember-classic-decorator';
+import run from '@ember/runloop';
 import {classNameBindings, classNames} from '@ember-decorators/component';
 import {computed} from '@ember/object';
-import {run} from '@ember/runloop';
 import {inject as service} from '@ember/service';
 
 @classic

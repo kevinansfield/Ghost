@@ -1,9 +1,9 @@
 import Component from '@glimmer/component';
 import Ember from 'ember';
+import run from '@ember/runloop';
 import {action} from '@ember/object';
 import {htmlSafe} from '@ember/template';
 import {inject} from 'ghost-admin/decorators/inject';
-import {run} from '@ember/runloop';
 import {inject as service} from '@ember/service';
 import {slugify} from '@tryghost/string';
 import {task, timeout} from 'ember-concurrency';

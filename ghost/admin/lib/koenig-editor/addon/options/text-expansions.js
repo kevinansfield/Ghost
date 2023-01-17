@@ -1,4 +1,4 @@
-import {run} from '@ember/runloop';
+import run from '@ember/runloop';
 
 // Text expansions watch text entry events and will look for matches, replacing
 // the matches with additional markup, atoms, or cards

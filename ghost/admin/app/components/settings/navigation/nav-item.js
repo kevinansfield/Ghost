@@ -1,9 +1,9 @@
 import Component from '@ember/component';
 import ValidationState from 'ghost-admin/mixins/validation-state';
 import boundOneWay from 'ghost-admin/utils/bound-one-way';
+import run from '@ember/runloop';
 import {computed} from '@ember/object';
 import {readOnly} from '@ember/object/computed';
-import {run} from '@ember/runloop';
 
 export default Component.extend(ValidationState, {
     classNames: 'gh-blognav-item',

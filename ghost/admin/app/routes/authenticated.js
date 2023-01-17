@@ -11,6 +11,7 @@ export default class AuthenticatedRoute extends Route {
     @inject config;
 
     async beforeModel(transition) {
+        super.beforeModel(...arguments);
         this.session.requireAuthentication(transition, 'signin');
     }
 

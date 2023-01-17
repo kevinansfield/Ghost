@@ -5,7 +5,7 @@ import {action, computed, set} from '@ember/object';
 import {utils as ghostHelperUtils} from '@tryghost/helpers';
 import {htmlSafe} from '@ember/template';
 import {isBlank} from '@ember/utils';
-import {run} from '@ember/runloop';
+import run from '@ember/runloop';
 import {task, timeout} from 'ember-concurrency';
 
 const {countWords, countImages} = ghostHelperUtils;

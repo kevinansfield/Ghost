@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
 import {action} from '@ember/object';
-import {run} from '@ember/runloop';
+import run from '@ember/runloop';
 
 const Y_OFFSET = 40;
 

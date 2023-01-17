@@ -3,7 +3,7 @@ import classic from 'ember-classic-decorator';
 import validator from 'validator';
 import {classNames} from '@ember-decorators/component';
 import {computed} from '@ember/object';
-import {run} from '@ember/runloop';
+import run from '@ember/runloop';
 
 // URI is attached to the window global as part of the
 // google-caja html-css-sanitizer-bundle

@@ -1,5 +1,7 @@
 import Transform from '@ember-data/serializer/transform';
+import classic from 'ember-classic-decorator';
 
+@classic
 export default class TwitterUrlUser extends Transform {
     deserialize(serialized) {
         if (serialized) {

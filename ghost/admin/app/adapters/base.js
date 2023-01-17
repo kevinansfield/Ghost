@@ -1,9 +1,11 @@
 import AjaxServiceSupport from 'ember-ajax/mixins/ajax-support';
 import RESTAdapter from '@ember-data/adapter/rest';
+import classic from 'ember-classic-decorator';
 import ghostPaths from 'ghost-admin/utils/ghost-paths';
 import {inject as service} from '@ember/service';
 import {underscore} from '@ember/string';
 
+@classic
 export default class BaseAdapter extends RESTAdapter.extend(AjaxServiceSupport) {
     host = window.location.origin;
     namespace = ghostPaths().apiRoot.slice(1);
