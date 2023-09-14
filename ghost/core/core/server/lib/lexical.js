@@ -31,8 +31,10 @@ module.exports = {
     },
 
     async render(lexical, userOptions = {}) {
+        const transacting = userOptions.transacting;
+
         // test fetching posts
-        const posts = await postsService.browsePosts({collection: 'latest', limit: 12});
+        const posts = await postsService.browsePosts({collection: 'latest', limit: 12, transacting});
         console.log(posts);
 
         const options = Object.assign({
