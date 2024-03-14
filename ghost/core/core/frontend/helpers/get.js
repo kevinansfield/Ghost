@@ -135,27 +135,38 @@ async function makeAPICall(resource, controllerName, action, apiOptions) {
     let makeRequest = () => controller[action](apiOptions);
 
     // Only do the optimisation on posts
-    if (resource === 'posts' && apiOptions.filter) {
+    if (resource === 'posts' && apiOptions.filter && apiOptions.limit !== 'all') {
+        console.log('Optimizing get helper', apiOptions.filter);
         try {
             const parsedFilter = nqlLang.parse(apiOptions.filter);
             // Support either `id:blah` or `id:blah+other:stuff`
             if (parsedFilter.$and || parsedFilter.id) {
                 const queries = parsedFilter.$and || [parsedFilter.id];
+                console.log(JSON.stringify(queries, null, 2));
 
                 for (const query of queries) {
                     if ('id' in query) {
                         if ('$ne' in query.id) {
-                            // This checks that there is only one occurence of a negative id filter
+                            // This checks that there is only one occurrence of a negative id filter
                             // So we know it's safe to use the `replace` method
                             if (apiOptions.filter.split('id:-').length === 2) {
                                 const idToFilter = query.id.$ne;
 
-                                // The default limit is 15, the addition order is to cast apiOptions.limit to a number
-                                let limit = apiOptions.limit;
-                                limit = apiOptions.limit && apiOptions.limit !== 'all' ? 1 + apiOptions.limit : 16;
+                                // Increase limit by 1 so we can filter out the post we don't want
+                                let limit;
+
+                                if (!apiOptions.limit) {
+                                    // Default limit is 15
+                                    limit = 16;
+                                } else {
+                                    // apiOptions.limit will be a string when called through handlebars
+                                    limit = parseInt(apiOptions.limit, 10) + 1;
+                                }
 
                                 // We replace with id:-null so we don't have to deal with leading/trailing AND operators
                                 const filter = apiOptions.filter.replace(/id:-[a-f0-9A-F]{24}/, 'id:-null');
+
+                                console.log({apiOptions, limit});
 
                                 makeRequest = async () => {
                                     const result = await controller[action]({
@@ -175,6 +186,8 @@ async function makeAPICall(resource, controllerName, action, apiOptions) {
                         }
                     }
                 }
+            } else {
+                console.log('Skipping optimization', JSON.stringify(parsedFilter, null, 2));
             }
         } catch (err) {
             logging.warn(err);
@@ -263,7 +276,7 @@ module.exports = async function get(resource, options) {
     try {
         const spanName = `{{#get "${resource}"${apiOptionsString}}} ${data.member ? 'member' : 'public'}`;
         const result = await Sentry.startSpan({
-            op: 'frontend.helpers.get', 
+            op: 'frontend.helpers.get',
             name: spanName,
             tags: {
                 resource,
@@ -277,11 +290,11 @@ module.exports = async function get(resource, options) {
             if (response[resource] && response[resource].length) {
                 response[resource].forEach(prepareContextResource);
             }
-    
+
             // used for logging details of slow requests
             returnedRowsCount = response[resource] && response[resource].length;
             span?.setTag('returnedRows', returnedRowsCount);
-    
+
             // block params allows the theme developer to name the data using something like
             // `{{#get "posts" as |result pageInfo|}}`
             const blockParams = [response[resource]];
@@ -289,7 +302,7 @@ module.exports = async function get(resource, options) {
                 response.pagination = response.meta.pagination;
                 blockParams.push(response.meta.pagination);
             }
-    
+
             // Call the main template function
             const rendered = options.fn(response, {
                 data: data,

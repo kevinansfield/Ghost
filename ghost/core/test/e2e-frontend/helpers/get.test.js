@@ -99,7 +99,7 @@ describe('e2e {{#get}} helper', function () {
         locals = {root: {_locals: {}}};
     });
 
-    describe('Filter optimisation', function () {
+    describe.only('Filter optimisation', function () {
         it('Returns the correct posts with a solo negative filter', async function () {
             await get.call({}, 'posts', {
                 hash: {
@@ -111,6 +111,7 @@ describe('e2e {{#get}} helper', function () {
                 inverse
             });
             const firstPostUsually = fn.firstCall.args[0].posts[0];
+            // TODO: this doesn't get optimised, is that intended?
             await get.call({}, 'posts', {
                 hash: {
                     filter: `id:-${firstPostUsually.id}`,
@@ -125,6 +126,7 @@ describe('e2e {{#get}} helper', function () {
             const foundFilteredPost = fn.secondCall.args[0].posts.find(post => post.id === firstPostUsually.id);
             assert.equal(foundFilteredPost, undefined);
         });
+
         it('Returns the correct posts with a sandwiched negative filter', async function () {
             await get.call({}, 'posts', {
                 hash: {
@@ -151,6 +153,7 @@ describe('e2e {{#get}} helper', function () {
             const foundFilteredPost = fn.secondCall.args[0].posts.find(post => post.id === firstPostUsually.id);
             assert.equal(foundFilteredPost, undefined);
         });
+
         it('Returns the correct posts with a prefix negative filter', async function () {
             await get.call({}, 'posts', {
                 hash: {
@@ -177,6 +180,7 @@ describe('e2e {{#get}} helper', function () {
             const foundFilteredPost = fn.secondCall.args[0].posts.find(post => post.id === firstPostUsually.id);
             assert.equal(foundFilteredPost, undefined);
         });
+
         it('Returns the correct posts with a suffix negative filter', async function () {
             await get.call({}, 'posts', {
                 hash: {
@@ -201,6 +205,35 @@ describe('e2e {{#get}} helper', function () {
             });
             assert.equal(fn.secondCall.args[0].posts.length, 5);
             const foundFilteredPost = fn.secondCall.args[0].posts.find(post => post.id === firstPostUsually.id);
+            assert.equal(foundFilteredPost, undefined);
+        });
+
+        it.only('Handles limit being a string', async function () {
+            await get.call({}, 'posts', {
+                hash: {
+                    filter: 'tag:-hash-hidden',
+                    limit: '1'
+                },
+                data: {},
+                locals,
+                fn,
+                inverse
+            });
+            const firstPostUsually = fn.firstCall.args[0].posts[0];
+            await get.call({}, 'posts', {
+                hash: {
+                    filter: `tag:-hash-hidden+id:-${firstPostUsually.id}`,
+                    limit: '1'
+                },
+                data: {},
+                locals,
+                fn,
+                inverse
+            });
+            assert.equal(fn.secondCall.args[0].posts.length, 1);
+            const foundFilteredPost = fn.secondCall.args[0].posts.find(
+                post => post.id === firstPostUsually.id
+            );
             assert.equal(foundFilteredPost, undefined);
         });
     });
