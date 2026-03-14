@@ -66,10 +66,10 @@ function escapeRegExp(string) {
     return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-// This aids with lazyloading the cheerio dependency
+// Lazy-loaded html-utils
 function cheerioLoad(html) {
-    const cheerio = require('cheerio');
-    return cheerio.load(html);
+    const {load} = require('../../lib/html-utils');
+    return load(html);
 }
 
 /**
