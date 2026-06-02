@@ -128,6 +128,23 @@ module.exports = {
         return spamPrevention.membersAuthEnumeration().prevent(req, res, next);
     },
 
+    checkoutSessionGlobal(req, res, next) {
+        return spamPrevention.checkoutSessionGlobal().prevent(req, res, next);
+    },
+
+    checkoutSessionEmail(req, res, next) {
+        return spamPrevention.checkoutSessionEmail().getMiddleware({
+            ignoreIP: false,
+            key(_req, _res, _next) {
+                if (_req.body?.customerEmail) {
+                    return _next(`${String(_req.body.customerEmail).trim().toLowerCase()}checkout`);
+                }
+
+                return _next();
+            }
+        })(req, res, next);
+    },
+
     /**
      * Block too many OTC verification attempts from same IP (blocks user enumeration)
      */
